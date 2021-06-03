@@ -54,7 +54,7 @@ def scrape():
 #     process = subprocess.run(cmd)
     if(process.returncode==1) :
         try:
-            return send_file("H:/Web/Projects/Review Scrapper/Review-Scraper-Project/output.csv", as_attachment=True)
+            return send_file("/app/output.csv", as_attachment=True)
         except FileNotFoundError:
             # abort(404)
             return "response"
