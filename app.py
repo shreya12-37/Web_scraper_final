@@ -5,7 +5,6 @@ import amazon_reviews
 import requests
 from bs4 import BeautifulSoup
 import os
-import pandas as pd
 configs = {
     "ORIGINS": [
         "http://localhost:3000/",
@@ -32,21 +31,15 @@ def scrape():
         + " -a page="
         + pages
     )
-    
-    # if os.path.exists("output.csv"):
-    #     os.remove("output.csv")
-
-    f = open("output.csv", "r+")
-    f.seek(0) 
-    # to erase all data 
-    f.truncate() 
-    process = subprocess.run(cmd)
-    df = pd.read_csv("output.csv")
-    return df.to_csv()
-    # try:
-    #     return send_file("H:/Web/Projects/Review Scrapper/Backend/output.csv", as_attachment=True)
-    # except FileNotFoundError:
-    #     return "response"
+    return "hello";
+#     if os.path.exists("output.csv"):
+#         os.remove("output.csv")
+#     process = subprocess.run(cmd)
+#     try:
+#         return send_file("https://git.heroku.com/review-scraper-server.git/output.csv", as_attachment=True)
+#     except FileNotFoundError:
+#         # abort(404)
+#         return "response"
     
 
 
