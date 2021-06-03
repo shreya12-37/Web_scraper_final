@@ -4,7 +4,8 @@ import subprocess
 import amazon_reviews
 import requests
 from bs4 import BeautifulSoup
-import os
+import csv
+
 configs = {
     "ORIGINS": [
         "http://localhost:3000/",
@@ -31,7 +32,22 @@ def scrape():
         + " -a page="
         + pages
     )
-    return "hello";
+    f = open("output.csv", "r+")
+    f.seek(0) 
+    # to erase all data 
+    f.truncate() 
+    process = subprocess.run(cmd)
+    fields = []
+    rows = []
+    with open("output.csv", 'r') as csvfile:
+        csvreader = csv.reader(csvfile)
+        fields = next(csvreader)
+        for row in csvreader:
+            rows.append(row)
+    # fields.append(rows)
+    response = jsonify(headers=fields,rows=rows)
+    return response
+    # return "hello"
 #     if os.path.exists("output.csv"):
 #         os.remove("output.csv")
 #     process = subprocess.run(cmd)
@@ -40,7 +56,7 @@ def scrape():
 #     except FileNotFoundError:
 #         # abort(404)
 #         return "response"
-    
+
 
 
 @app.route("/download-summary", methods=["GET"])
