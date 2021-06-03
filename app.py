@@ -36,7 +36,8 @@ def scrape():
     f.seek(0) 
     # to erase all data 
     f.truncate() 
-    process = subprocess.run(cmd,shell=True)
+    process = subprocess.run(cmd, shell=True)
+    print("\n\n PROCESS : ",process)
     # fields = []
     # rows = []
     # with open("output.csv", 'r') as csvfile:
@@ -51,11 +52,13 @@ def scrape():
 #     if os.path.exists("output.csv"):
 #         os.remove("output.csv")
 #     process = subprocess.run(cmd)
-    try:
-        return send_file("/app/output.csv", as_attachment=True)
-    except FileNotFoundError:
-        # abort(404)
-        return "response"
+    if(process.returncode==1) :
+        try:
+            return send_file("H:/Web/Projects/Review Scrapper/Review-Scraper-Project/output.csv", as_attachment=True)
+        except FileNotFoundError:
+            # abort(404)
+            return "response"
+    return "ELSE"
 
 
 
