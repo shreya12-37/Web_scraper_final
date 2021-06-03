@@ -27,9 +27,9 @@ def scrape():
     url = data["url"]
     pages = data["pages"]
     cmd = (
-        "scrapy runspider amazon_reviews.py -o output.csv -a url="
+        "scrapy runspider amazon_reviews.py -o output.csv url="
         + url
-        + " -a page="
+        + " page="
         + pages
     )
     f = open("output.csv", "r+")
