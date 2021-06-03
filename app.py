@@ -32,7 +32,7 @@ def scrape():
         + "-a page="
         + pages
     )
-    f = open("output1.csv", "rw+")
+    f = open("output1.csv", "w+")
     f.seek(0) 
     # to erase all data 
     f.truncate(0) 
