@@ -32,10 +32,10 @@ def scrape():
         + "-a page="
         + pages
     )
-    f = open("output1.csv", "w+")
-    f.seek(0) 
-    # to erase all data 
-    f.truncate(0) 
+#     f = open("output1.csv", "w+")
+#     f.seek(0) 
+#     # to erase all data 
+#     f.truncate(0) 
     process = subprocess.run(cmd, shell=True)
     print("\n\n PROCESS : ",process)
     # fields = []
