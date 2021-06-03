@@ -35,7 +35,7 @@ def scrape():
         os.remove("output.csv")
     process = subprocess.run(cmd)
     try:
-        return send_file("https://review-scraper-server.herokuapp.com/output.csv", as_attachment=True)
+        return send_file("https://git.heroku.com/review-scraper-server.git/output.csv", as_attachment=True)
     except FileNotFoundError:
         # abort(404)
         return "response"
