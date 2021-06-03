@@ -27,9 +27,9 @@ def scrape():
     url = data["url"]
     pages = data["pages"]
     cmd = (
-        "scrapy runspider amazon_reviews.py -o output.csv -a url="
+        "scrapy runspider amazon_reviews.py -o output1.csv -a url="
         + url
-        + " page="
+        + "-a page="
         + pages
     )
     f = open("output.csv", "r+")
@@ -54,7 +54,7 @@ def scrape():
 #     process = subprocess.run(cmd)
 #     if(process.returncode==0) :
     try:
-        return send_file("./output.csv", as_attachment=True)
+        return send_file("./output1.csv", as_attachment=True)
     except FileNotFoundError:
         # abort(404)
         return "response"
