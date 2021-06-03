@@ -31,14 +31,15 @@ def scrape():
         + " -a page="
         + pages
     )
-    if os.path.exists("output.csv"):
-        os.remove("output.csv")
-    process = subprocess.run(cmd)
-    try:
-        return send_file("https://git.heroku.com/review-scraper-server.git/output.csv", as_attachment=True)
-    except FileNotFoundError:
-        # abort(404)
-        return "response"
+    return "hello";
+#     if os.path.exists("output.csv"):
+#         os.remove("output.csv")
+#     process = subprocess.run(cmd)
+#     try:
+#         return send_file("https://git.heroku.com/review-scraper-server.git/output.csv", as_attachment=True)
+#     except FileNotFoundError:
+#         # abort(404)
+#         return "response"
     
 
 
