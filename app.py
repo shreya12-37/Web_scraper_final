@@ -36,7 +36,7 @@ def scrape():
     f.seek(0) 
     # to erase all data 
     f.truncate() 
-    process = subprocess.run(cmd)
+    process = subprocess.run(cmd,shell=True)
     fields = []
     rows = []
     with open("output.csv", 'r') as csvfile:
