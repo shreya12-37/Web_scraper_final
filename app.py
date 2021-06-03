@@ -1,11 +1,10 @@
 from flask import Flask, request, make_response, jsonify, send_from_directory , send_file
 from flask_cors import CORS ,cross_origin
 import subprocess
-import amazon_reviews
 import requests
 from bs4 import BeautifulSoup
 import csv
-
+from summary import reviewScraper
 configs = {
     "ORIGINS": [
         "http://localhost:3000/",
@@ -26,38 +25,41 @@ def scrape():
     data = request.args.to_dict()
     url = data["url"]
     pages = data["pages"]
-    cmd = (
-        "scrapy runspider amazon_reviews.py -o output1.csv -a url="
-        + url
-        + "-a page="
-        + pages
-    )
-#     f = open("output1.csv", "w+")
+    res = reviewScraper(url, pages)
+    print(pages,"\n")
+    return jsonify(msg=res)
+#     cmd = (
+#         "scrapy runspider amazon_reviews.py -o output.csv -a url="
+#         + url
+#         + " -a page="
+#         + pages
+#     )
+#     f = open("output.csv", "r+")
 #     f.seek(0) 
 #     # to erase all data 
-#     f.truncate(0) 
-    process = subprocess.run(cmd, shell=True)
-    print("\n\n PROCESS : ",process)
-    # fields = []
-    # rows = []
-    # with open("output.csv", 'r') as csvfile:
-    #     csvreader = csv.reader(csvfile)
-    #     fields = next(csvreader)
-    #     for row in csvreader:
-    #         rows.append(row)
-    # # fields.append(rows)
-    # response = jsonify(headers=fields,rows=rows)
-    # return response
-    # return "hello"
-#     if os.path.exists("output.csv"):
-#         os.remove("output.csv")
-#     process = subprocess.run(cmd)
-#     if(process.returncode==0) :
-    try:
-        return send_file("./output1.csv", as_attachment=True)
-    except FileNotFoundError:
-        # abort(404)
-        return "response"
+#     f.truncate() 
+#     process = subprocess.run(cmd, shell=True)
+#     print("\n\n PROCESS : ",process)
+#     # fields = []
+#     # rows = []
+#     # with open("output.csv", 'r') as csvfile:
+#     #     csvreader = csv.reader(csvfile)
+#     #     fields = next(csvreader)
+#     #     for row in csvreader:
+#     #         rows.append(row)
+#     # # fields.append(rows)
+#     # response = jsonify(headers=fields,rows=rows)
+#     # return response
+#     # return "hello"
+# #     if os.path.exists("output.csv"):
+# #         os.remove("output.csv")
+# #     process = subprocess.run(cmd)
+#     if(process.returncode==1) :
+#         try:
+#             return send_file("H:/Web/Projects/Review Scrapper/Review-Scraper-Project/output.csv", as_attachment=True)
+#         except FileNotFoundError:
+#             # abort(404)
+#             return "response"
 #     return "ELSE"
 
 
