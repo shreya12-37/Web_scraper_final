@@ -52,13 +52,13 @@ def scrape():
 #     if os.path.exists("output.csv"):
 #         os.remove("output.csv")
 #     process = subprocess.run(cmd)
-    if(process.returncode==1) :
-        try:
-            return send_file("/app/output.csv", as_attachment=True)
-        except FileNotFoundError:
-            # abort(404)
-            return "response"
-    return "ELSE"
+#     if(process.returncode==0) :
+    try:
+        return send_file("/app/output.csv", as_attachment=True)
+    except FileNotFoundError:
+        # abort(404)
+        return "response"
+#     return "ELSE"
 
 
 
