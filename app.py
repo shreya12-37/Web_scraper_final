@@ -16,11 +16,9 @@ configs = {
 }
 app = Flask(__name__)
 app.secret_key = configs['SECRET_KEY']
-# CORS(app, resources={ r"/*": {'origins': configs['ORIGINS']}}, supports_credentials=True)
 CORS(app, supports_credentials=True)
 app.config["CLIENT_CSV"] = "H:/Web/Projects/Review Scrapper/Review-Scraper-Project"
 @app.route("/download-csv-file", methods=["GET"])
-# @cross_origin(headers=["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Access-Control-Allow-Methods"])
 def scrape():
     data = request.args.to_dict()
     url = data["url"]
@@ -28,44 +26,10 @@ def scrape():
     res = reviewScraper(url, pages)
     print(pages,"\n")
     return jsonify(msg=res)
-#     cmd = (
-#         "scrapy runspider amazon_reviews.py -o output.csv -a url="
-#         + url
-#         + " -a page="
-#         + pages
-#     )
-#     f = open("output.csv", "r+")
-#     f.seek(0) 
-#     # to erase all data 
-#     f.truncate() 
-#     process = subprocess.run(cmd, shell=True)
-#     print("\n\n PROCESS : ",process)
-#     # fields = []
-#     # rows = []
-#     # with open("output.csv", 'r') as csvfile:
-#     #     csvreader = csv.reader(csvfile)
-#     #     fields = next(csvreader)
-#     #     for row in csvreader:
-#     #         rows.append(row)
-#     # # fields.append(rows)
-#     # response = jsonify(headers=fields,rows=rows)
-#     # return response
-#     # return "hello"
-# #     if os.path.exists("output.csv"):
-# #         os.remove("output.csv")
-# #     process = subprocess.run(cmd)
-#     if(process.returncode==1) :
-#         try:
-#             return send_file("H:/Web/Projects/Review Scrapper/Review-Scraper-Project/output.csv", as_attachment=True)
-#         except FileNotFoundError:
-#             # abort(404)
-#             return "response"
-#     return "ELSE"
 
 
 
 @app.route("/download-summary", methods=["GET"])
-# @cross_origin(origin='http://localhost:3000/',headers=['Access-Control-Allow-Origin','Content-Type','Authorization'])
 def summary():
     data = request.args.to_dict()
     my_url = data["url"]
@@ -73,7 +37,6 @@ def summary():
     htmlcontent = r.content
     soup = BeautifulSoup(htmlcontent, "html.parser")
     product_title = soup.find(class_=["a-text-ellipsis"]).get_text()
-    # print(product_title)
     overall_rating = soup.find(class_=["averageStarRating"]).get_text()
     global_rating_reviews = (
         soup.find(class_=["a-row a-spacing-base a-size-base"]).get_text().strip()
